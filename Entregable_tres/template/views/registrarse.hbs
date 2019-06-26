@@ -1,0 +1,31 @@
+{{>header}}
+<div class="container">   
+    <form action="/registroUsuario" method="post">
+        <div class="form-group input-group">
+            <input name="identificacion" class="form-control" placeholder="Identificación" type="number">
+        </div> 
+        <div class="form-group input-group">
+            <input name="nombre" class="form-control" placeholder="Nombre Completo" type="text">
+        </div>
+        <div class="form-group input-group">
+            <input name="telefono" class="form-control" placeholder="Número de teléfono" type="number">
+        </div>
+        <div class="form-group input-group">
+            <input name="correo" class="form-control" placeholder="E-mail" type="email">
+        </div>
+        <div class="form-group input-group">
+            <input name="contrasena" class="form-control" placeholder="Contraseña" type="password">
+        </div>
+
+        <div class="form-group form-inline d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a class="btn btn-secondary" href="/login">Regresar</a>
+        </div> 
+    </form>
+</div>
+<script type="text/javascript">
+     const regresar = ()=>{
+         window.location.back()
+     }
+</script>
+{{>footer}}
