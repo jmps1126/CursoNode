@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const hbs = require('hbs')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
 const Usuario = require('./../models/usuarios')
@@ -36,23 +38,80 @@ app.post('/registroUsuario', (req,res)=>{
 		 nombre: req.body.nombre,
 		 telefono: req.body.telefono,
 		 correo: req.body.correo,
-		 contrasena: req.body.contrasena
+		 contrasena: bcrypt.hashSync(req.body.contrasena,10) 
 	 })
 
 	 usuario.save((err,result)=>{
 		 if(err){
-			console.log(err)
 			res.render('informativo',{
 				titulo: 'Error',
-				mensaje: 'Ha ocurrido un error'
+				mensaje: `Ha ocurrido un error: ${err}`
 			})
 		 }else{
 			 res.render('informativo', {
 				 titulo: 'Sucess',
-				 mensaje: 'El usuario ha sido almacenado exitosamente'
+				 mensaje: 'El usuario ha sido almacenado exitosamente' 
 			 })
 		 }
 	 })
+})
+
+//Ingresar al sistema
+app.post('/ingresar', (req, res) =>{
+
+	Usuario.findOne({correo: req.body.correo},(err, result) =>{
+		if(err){
+			return res.render('informativo',{
+				titulo: 'Error',
+				mensaje: `Ha ocurrido un error ${err}`
+			})
+		}
+		if(!result){
+			return res.render('informativo', {
+				titulo: 'Error',
+				mensaje: `El usuario no está registrado en el sistema`
+			})
+		}
+		if(!bcrypt.compareSync(req.body.contrasena, result.contrasena)){
+			return res.render('informativo', {
+				titulo: 'Error',
+				mensaje: `contraseña incorrecta.`
+			})
+		}
+
+		//generar token
+		let token = jwt.sign({
+			data: result
+		},'entregable-tres', {expiresIn: '1h'})
+		
+		localStorage.setItem('token',token)
+		//Asignamos una variable de session para identicar el rol del usurio
+
+		// 1 = rol aspirante
+		//2 = rol coordinador
+		//3 = rol interesado
+
+		let aspirante = false;
+		let coordinador = false;
+		let interesado = false;
+
+		switch(result.rol){
+			case 1:
+				aspirante = true
+				break
+
+			default:
+				console.log('No se encontro un rol para el usuario en la base de datos')
+		}
+	
+
+		res.render('menuppal',{
+			mensaje: `Bienvenido Sr(a) ${result.nombre}`,
+			rolAspirante: aspirante
+		})
+
+
+	})
 })
 
 //Error page

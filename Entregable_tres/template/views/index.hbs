@@ -1,34 +1,24 @@
-  
 {{>header}}
-{{>menu}}
-{{!-- <div class="container">
-  <h2>Bienvenido a mi sitio</h2>
+<div class="container">
+  <div class="title-center">
+    <h3>Por favor ingrese al sistema para poder visualizar el menú o si no tiene un usuario favor registrarse</h3>
+  </div>
+  <hr>
   <br>
-  <p>Ingrese sus datos en el siguiente formulario</p>
-  <form action="/" method="post">
+  <form action="/ingresar" method="post">
     <div class="form-group">
-      <label >Nombre</label>
-      <input type="text"  class="form-control"  name="nombre" placeholder="Nombre de usuario" required><br>   
-      <label >Contraseña</label>
-      <input type="text"  class="form-control"  name="password" placeholder="Contraseña" required><br>       
-      <div class="row">
-        <div class="col">
-         <label >Nota 1</label>
-         <input type="number" class="form-control" name="matematicas" placeholder="Nota 1" required> 
-       </div>
-       <div class="col">
-         <label >Nota 2</label>
-         <input type="number" class="form-control" name="ingles" placeholder="Nota 2" required>
-       </div>
-       <div class="col">
-         <label >Nota 3</label>
-         <input type="number" class="form-control" name="programacion" placeholder="Nota 3" required>
-       </div>
-     </div>
-     <br>
-     <button class="btn btn-dark">Registrar</button>
-   </div>
- </form>	
-</div> --}}
-  {{>footer}}
-  
+      <label for="email">Correo Electrónico</label>
+      <input type="email" class="form-control" id="email" name="correo" aria-describedby="emailHelp"
+        placeholder="Ingresar correo electronico" required>
+    </div>
+    <div class="form-group">
+      <label for="pass">Contraseña</label>
+      <input type="password" class="form-control" id="pass" name="contrasena" placeholder="Ingresar contraseña">
+    </div>
+    <div class="form-group form-inline d-flex justify-content-center">
+      <button type="submit" class="btn btn-primary">Acceder</button>
+      <a class="nav-link" href="/registrarse">Registrarse</a>
+    </div>
+  </form>
+</div>
+{{>footer}}

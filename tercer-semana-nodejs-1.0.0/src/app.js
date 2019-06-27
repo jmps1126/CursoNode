@@ -73,7 +73,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(require('./routes/index'));
 
 
-mongoose.connect(process.env.URLDB, {useNewUrlParser: true}, (err, resultado) => {
+mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useCreateIndex: true}, (err, resultado) => {
 	if (err){
 		return console.log(error)
 	}

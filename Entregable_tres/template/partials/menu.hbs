@@ -12,20 +12,17 @@
                 <a class="nav-link" href="/vernotas">VER NOTAS</a>
             </li>
 
-            {{#if sesion}}
+            {{#if rolAspirante}}
             <li class="nav-item">
                 <a class="nav-link" href="/actualizar">ACTUALIZAR</a>
             </li>
+            {{/if}}
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/salir" method="get">
-            <h3>{{nombre}}</h3>
+            {{!-- <h3>{{nombre}}</h3> --}}
             <button class="btn btn-danger my-2 my-sm-0" type="submit">Salir</button>
         </form>
-        {{else}}
-        </ul>
-        <a class="btn btn-primary my-2 my-sm-0" href="/login">INGRESAR</a>
-        {{!-- <button class="btn btn-primary my-2 my-sm-0" type="submit">Ingresar</button> --}}
-        {{/if}}
+
 
     </div>
 </nav>
