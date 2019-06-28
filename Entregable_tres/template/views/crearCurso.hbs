@@ -1,0 +1,34 @@
+{{>header}}
+{{>menu}}
+<div class="container">
+    <form action="/guardarCurso" method="post">
+        <div class="form-group input-group">
+            <input name="idcurso" class="form-control" placeholder="código del curso" type="number" required>
+        </div>
+        <div class="form-group input-group">
+            <input name="nombre" class="form-control" placeholder="Nombre del curso" type="text" required>
+        </div>
+        <div class="form-group input-group">
+            <input name="descripcion" class="form-control" placeholder="Descripción del curso" type="text" required>
+        </div>
+        <div class="form-group input-group">
+            <input name="valor" class="form-control" placeholder="valor del curso" type="number" required>
+        </div>
+        <div class="form-group input-group">
+            <select class="browser-default custom-select" name="modalidad">
+                <option selected>Seleccione modalidad</option>
+                <option value="1">Virtual</option>
+                <option value="2">Presencial</option>
+            </select>
+        </div>
+        <div class="form-group input-group">
+            <input name="intensidad" class="form-control" placeholder="Intensidad horaria en horas" type="number">
+        </div>
+
+        <div class="form-group form-inline d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            {{!-- <a class="btn btn-secondary" href="/login">Regresar</a> --}}
+        </div>
+    </form>
+</div>
+{{>footer}}

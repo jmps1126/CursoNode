@@ -5,12 +5,28 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item ">
+            {{!-- <li class="nav-item ">
                 <a class="nav-link" href="/">INICIO </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/vernotas">VER NOTAS</a>
-            </li>
+            </li> --}}
+            {{#if rolCoordinador}}
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    Cursos
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/crearCurso">Registrar Cursos</a>
+                     <div class="dropdown-divider"></div>
+                    {{!-- <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Separated link</a> --}}
+                </div>
+            </div>
+            {{/if}}
 
             {{#if rolAspirante}}
             <li class="nav-item">
@@ -19,7 +35,6 @@
             {{/if}}
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/salir" method="get">
-            {{!-- <h3>{{nombre}}</h3> --}}
             <button class="btn btn-danger my-2 my-sm-0" type="submit">Salir</button>
         </form>
 
