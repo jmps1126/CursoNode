@@ -128,14 +128,31 @@ app.post('/ingresar', (req, res) => {
 })
 
 //paginas que puede visualizar el usuario con rol coordinador
-app.get('/crearCurso',(req, res)=>{
+app.get('/adminCurso',(req, res)=>{
+	
+	Curso.find({},(err,result)=>{
+		if(err){
+			return res.render('informativo',{
+				titulo:'Error',
+				mensaje:`Ha ocurrido un error: ${err}`
+			})
+		}
+		res.render('adminCurso', {
+			titulo: 'Administrar Cursos',
+			listCursos: result
+		})
+	})
+	
+})
+
+app.get('/crearCurso', (req, res)=>{
 	res.render('crearCurso',{
-		titulo: 'Administrar Cursos'
+		titulo: 'Registrar curso'
 	})
 })
 
 app.post('/guardarCurso', (req, res)=>{
-	console.log(req.body.nombre)
+
 	let curso = new Curso({
 
 		idcurso: req.body.idcurso,
@@ -161,10 +178,63 @@ app.post('/guardarCurso', (req, res)=>{
 	})
 })
 
+app.get('/actualizarCurso/:idcurso', (req, res)=>{
+	
+	Curso.findOne({ idcurso: req.params.idcurso}, (err, curso) =>{
+		console.log(curso)
+		if (err) {
+			return res.render('informativo', {
+				mensaje: `Ha ocurrido un error ${err}`
+			})
+		}
+
+		if (!curso) {
+			return res.render('informativo', {
+				mensaje: `curso no encontrado`
+			})
+		}
+
+		res.render('crearCurso',{
+			titulo: 'Actualizar curso',
+			idcurso: curso.idcurso,
+			nombre: curso.nombre,
+			descripcion: curso.descripcion,
+			valor: curso.valor,
+			intensidad: curso.intensidad
+		})
+
+	})
+	
+})
+
+app.post('/eliminarCurso', (req, res) =>{
+	Curso.findOneAndDelete({idcurso: req.body.idcurso}, req.body, (err, result)=>{
+		if(err){
+			return res.render('informativo',{
+				mensaje: `Ha ocurrido un error ${err}`
+			})
+		}
+
+		if(!result){
+			return res.render('informativo', {
+				mensaje: `curso no encontrado`
+			})
+		}
+
+		res.render('informativo',{
+			mensaje: 'El curso se ha eliminado exitosamente'
+		})
+
+		
+	})
+})
+
 //cerrar sesion
 app.get('/salir', (req, res) => {
 	localStorage.setItem('token', '')
-	res.render('/')
+	res.render('index', {
+		titulo: 'Entregable Tres Curso NodeJs',
+	})
 })
 
 //Error page

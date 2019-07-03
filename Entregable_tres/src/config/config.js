@@ -6,6 +6,7 @@ if (process.env.NODE_ENV === 'local'){
 	urlDB = 'mongodb://localhost:27017/cursoNode';
 }
 else {
+urlDB = 'mongodb+srv://juan:juanserna22@cursonodejstdea-vubsz.mongodb.net/test?retryWrites=true&w=majority'
 	// urlDB = 'mongodb+srv://nodejstdea:nodejstdea@nodejstdea-4jn4i.mongodb.net/asignaturas?retryWrites=true'
 }
 

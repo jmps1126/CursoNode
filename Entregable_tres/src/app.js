@@ -67,7 +67,7 @@ app.listen(process.env.PORT, () => {
 //Conexion mongoose
 mongoose.connect(process.env.URLDB, { useNewUrlParser: true, useCreateIndex: true }, (err, resul) => {
 	if (err) {
-		return console.log(error)
+		return console.log(err)
 	}
 	console.log("conectado a mongoose")
 });

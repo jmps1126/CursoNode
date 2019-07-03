@@ -3,16 +3,16 @@
 <div class="container">
     <form action="/guardarCurso" method="post">
         <div class="form-group input-group">
-            <input name="idcurso" class="form-control" placeholder="código del curso" type="number" required>
+            <input name="idcurso" class="form-control" value="{{idcurso}}"  placeholder="código del curso" type="number" required>
         </div>
         <div class="form-group input-group">
-            <input name="nombre" class="form-control" placeholder="Nombre del curso" type="text" required>
+            <input name="nombre" class="form-control" value="{{nombre}}" placeholder="Nombre del curso" type="text" required>
         </div>
         <div class="form-group input-group">
-            <input name="descripcion" class="form-control" placeholder="Descripción del curso" type="text" required>
+            <input name="descripcion" class="form-control" value="{{descripcion}}" placeholder="Descripción del curso" type="text" required>
         </div>
         <div class="form-group input-group">
-            <input name="valor" class="form-control" placeholder="valor del curso" type="number" required>
+            <input name="valor" class="form-control" value="{{valor}}" placeholder="valor del curso" type="number" required>
         </div>
         <div class="form-group input-group">
             <select class="browser-default custom-select" name="modalidad">
@@ -22,12 +22,11 @@
             </select>
         </div>
         <div class="form-group input-group">
-            <input name="intensidad" class="form-control" placeholder="Intensidad horaria en horas" type="number">
+            <input name="intensidad" class="form-control" value="{{intensidad}}"  placeholder="Intensidad horaria en horas" type="number">
         </div>
 
         <div class="form-group form-inline d-flex justify-content-center">
             <button type="submit" class="btn btn-primary">Guardar</button>
-            {{!-- <a class="btn btn-secondary" href="/login">Regresar</a> --}}
         </div>
     </form>
 </div>
