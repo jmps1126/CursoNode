@@ -8,6 +8,7 @@ const dirViews = path.join(__dirname, '../../template/views')
 const dirPartials = path.join(__dirname, '../../template/partials')
 const Usuario = require('./../models/usuarios')
 const Curso = require('./../models/cursos')
+const ReservarCurso = require('./../models/reservaCurso')
 require('./../helpers/helpers')
 
 //hbs
@@ -152,7 +153,7 @@ app.get('/crearCurso', (req, res)=>{
 })
 
 app.post('/guardarCurso', (req, res)=>{
-
+	
 	let curso = new Curso({
 
 		idcurso: req.body.idcurso,
@@ -160,8 +161,10 @@ app.post('/guardarCurso', (req, res)=>{
 		descripcion: req.body.descripcion,
 		valor: req.body.valor,
 		modalidad: req.body.modalidad,
-		intensidad: req.body.intensidad
+		intensidad: req.body.intensidad,
+		cupos: req.body.cupos
 	})
+
 
 	curso.save((err, result) => {
 		if (err) {
@@ -194,13 +197,14 @@ app.get('/actualizarCurso/:idcurso', (req, res)=>{
 			})
 		}
 
-		res.render('crearCurso',{
+		res.render('editarCurso',{
 			titulo: 'Actualizar curso',
 			idcurso: curso.idcurso,
 			nombre: curso.nombre,
 			descripcion: curso.descripcion,
 			valor: curso.valor,
-			intensidad: curso.intensidad
+			intensidad: curso.intensidad,
+			cupos: curso.cupos
 		})
 
 	})
@@ -226,6 +230,51 @@ app.post('/eliminarCurso', (req, res) =>{
 		})
 
 		
+	})
+})
+
+//paginas que puede visualizar el usuario con rol aspirante
+app.get('/cursosDisponibles',(req,res)=>{
+	Curso.find({estado: 1},(err,result)=>{
+		if(err){
+			return res.render('informativo',{
+				titulo:'Error',
+				mensaje:`Ha ocurrido un error: ${err}`
+			})
+		}
+		res.render('cursosDisponibles', {
+			titulo: 'Cursos Disponibles',
+			listCursosDisponibles: result
+		})
+	})
+})
+
+app.post('/reservarCupo', (req, res)=>{
+
+	let reserva = new ReservarCurso({
+
+		idcurso: req.body.idcurso,
+		nombre: req.body.nombre,
+		descripcion: req.body.descripcion,
+		valor: req.body.valor,
+		modalidad: req.body.modalidad,
+		intensidad: req.body.intensidad,
+		cupos: req.body.cupos
+	})
+
+
+	reserva.save((err, result) => {
+		if (err) {
+			res.render('informativo', {
+				titulo: 'Error',
+				mensaje: `Ha ocurrido un error: ${err}`
+			})
+		} else {
+			res.render('informativo', {
+				titulo: 'Sucess',
+				mensaje: 'El curso ha sido almacenado exitosamente'
+			})
+		}
 	})
 })
 

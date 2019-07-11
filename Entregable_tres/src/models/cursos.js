@@ -35,6 +35,10 @@ const cursosSchema = new Schema({
     estado:{
         type: Number,
         default: 1
+    },
+    cupos:{
+        type: Number,
+        required: true
     }
 
 })
