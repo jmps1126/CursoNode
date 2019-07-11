@@ -211,6 +211,22 @@ app.get('/actualizarCurso/:idcurso', (req, res)=>{
 	
 })
 
+app.post('/editarCurso',(req, res)=>{
+	Curso.findOneAndUpdate({ idcurso: req.body.idcurso }, req.body, { new: true, runValidators: true, context: 'query' }, (err, result) => {
+		if (err) {
+			res.render('informativo', {
+				titulo: 'Error',
+				mensaje: `Ha ocurrido un error: ${err}`
+			})
+		} else {
+			res.render('informativo', {
+				titulo: 'Sucess',
+				mensaje: 'El curso ha sido almacenado exitosamente'
+			})
+		}
+	})	
+})
+
 app.post('/eliminarCurso', (req, res) =>{
 	Curso.findOneAndDelete({idcurso: req.body.idcurso}, req.body, (err, result)=>{
 		if(err){
@@ -272,7 +288,7 @@ app.post('/reservarCupo', (req, res)=>{
 		} else {
 			res.render('informativo', {
 				titulo: 'Sucess',
-				mensaje: 'El curso ha sido almacenado exitosamente'
+				mensaje: 'la reserva ha sido almacenado exitosamente'
 			})
 		}
 	})
