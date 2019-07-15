@@ -23,7 +23,7 @@ const reservaCursoSchema = new Schema({
         required: true,
         trim: true
     },
-    idCurso: {
+    idcurso: {
         type: Number,
         required: true
     }

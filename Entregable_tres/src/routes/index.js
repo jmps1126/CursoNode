@@ -265,17 +265,25 @@ app.get('/cursosDisponibles',(req,res)=>{
 	})
 })
 
+app.post('/reservar', (req, res)=>{
+	
+	res.render('reservar',{
+		titulo: 'Inscribir curso',
+		nombre: 'Juan',
+		idcurso: req.body.idcurso
+	})
+})
+
 app.post('/reservarCupo', (req, res)=>{
+	console.log(req.body.idcurso)
 
 	let reserva = new ReservarCurso({
 
-		idcurso: req.body.idcurso,
+		idcurso: 1,
+		identificacion: req.body.identificacion,
 		nombre: req.body.nombre,
-		descripcion: req.body.descripcion,
-		valor: req.body.valor,
-		modalidad: req.body.modalidad,
-		intensidad: req.body.intensidad,
-		cupos: req.body.cupos
+		telefono: req.body.telefono,
+		correo: req.body.correo,
 	})
 
 
@@ -288,7 +296,7 @@ app.post('/reservarCupo', (req, res)=>{
 		} else {
 			res.render('informativo', {
 				titulo: 'Sucess',
-				mensaje: 'la reserva ha sido almacenado exitosamente'
+				mensaje: 'la inscripción ha sido almacenado exitosamente'
 			})
 		}
 	})
@@ -309,5 +317,15 @@ app.get('*', (req, res) => {
 		mensaje: 'Ha ocurrido un error'
 	})
 })
+
+//menu principal
+// app.get('/menuppal',()=>{
+// 	res.render('menuppal',{
+// 		mensaje: `Bienvenido Sr(a) ${result.nombre}`,
+// 		rolAspirante: aspirante,
+// 		rolCoordinador: coordinador,
+// 		rolInteresado: interesado
+// 	})
+// })
 
 module.exports = app
